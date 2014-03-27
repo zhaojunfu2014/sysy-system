@@ -23,7 +23,7 @@ import javax.persistence.SequenceGenerator;
 /**   
  * @Title: Entity
  * @Description: ${ftl_description}
- * @author onlineGenerator
+ * @author 赵俊夫
  * @date ${ftl_create_time}
  * @version V1.0   
  *
