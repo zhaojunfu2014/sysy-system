@@ -1,0 +1,2 @@
+git remote add origin https://github.com/zhaojunfu2014/sysy-system.git
+git push -u origin master
