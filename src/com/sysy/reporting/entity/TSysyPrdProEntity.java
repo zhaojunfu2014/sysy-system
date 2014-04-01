@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 /**   
  * @Title: Entity
  * @Description: 产品生产记录
- * @author onlineGenerator
+ * @author 赵俊夫
  * @date 2014-03-27 11:49:09
  * @version V1.0   
  *

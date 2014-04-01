@@ -29,7 +29,7 @@ import org.jeecgframework.core.util.MyBeanUtils;
 /**   
  * @Title: Controller
  * @Description: 企业基本信息
- * @author onlineGenerator
+ * @author 赵俊夫
  * @date 2014-03-27 11:48:29
  * @version V1.0   
  *

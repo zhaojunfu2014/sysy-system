@@ -13,5 +13,5 @@ public interface TraceDao {
 	@Arguments({"pno","bno","sno"})
 	public Map<String,Object> findPrdPro(String pno,String bno,String sno);
 	@Arguments("pid")
-	public List<Map<String,Object>>findPrdMaterial(Long pid);
+	public List<Map<String,Object>> findPrdMaterial(Long pid);
 }
