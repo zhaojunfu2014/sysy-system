@@ -33,9 +33,9 @@
 	<tbody id="add_jeecgStudent_table_template">
 		<tr>
 			<td align="center"><input style="width: 20px;" type="checkbox" name="ck" /></td>
-			<td align="left"><input name="students[#index#].name" maxlength="50" type="text" style="width: 220px;"></td>
+			<td align="left"><input name="students[#index#].name" maxlength="50" type="text" style="width:220px;"></td>
 			<td align="left"><t:dictSelect field="students[#index#].sex" typeGroupCode="sex" hasLabel="false"></t:dictSelect></td>
-		</tr>
+        </tr>
 	</tbody>
 </table>
 </body>

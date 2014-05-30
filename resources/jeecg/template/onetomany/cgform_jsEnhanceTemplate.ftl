@@ -36,7 +36,32 @@ function resetTrNum(tableId) {
 		$(this).find('div[name=\'xh\']').html(i+1);
 	});
 }
-
+//通用弹出式文件上传
+function commonUpload(callback,inputId){
+    $.dialog({
+           content: "url:systemController.do?commonUpload",
+           lock : true,
+           title:"文件上传",
+           zIndex:2100,
+           width:700,
+           height: 200,
+           parent:windowapi,
+           cache:false,
+       ok: function(){
+               var iframe = this.iframe.contentWindow;
+               iframe.uploadCallback(callback,inputId);
+               return true;
+       },
+       cancelVal: '关闭',
+       cancel: function(){
+       } 
+   });
+}
+//通用弹出式文件上传-回调
+function commonUploadDefaultCallBack(url,name,inputId){
+	$("#"+inputId+"_href").attr('href',url).html('下载');
+	$("#"+inputId).val(url);
+}
 function browseImages(inputId, Img) {// 图片管理器，可多个上传共用
 		var finder = new CKFinder();
 		finder.selectActionFunction = function(fileUrl, data) {//设置文件被选中时的函数 

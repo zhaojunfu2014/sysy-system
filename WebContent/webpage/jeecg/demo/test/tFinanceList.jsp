@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;">
 <t:datagrid name="tFinanceList" title="多附件管理" actionUrl="tFinanceController.do?datagrid" fitColumns="true" idField="id" fit="true" queryMode="group">

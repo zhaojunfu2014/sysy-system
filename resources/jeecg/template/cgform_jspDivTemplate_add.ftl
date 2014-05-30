@@ -69,7 +69,7 @@
 					  <input type="hidden" id="${po.fieldName}" name="${po.fieldName}" />
 						 <a  target="_blank" id="${po.fieldName}_href">暂时未上传文件</a>
 					     <input class="ui-button" type="button" value="上传附件"
-									onclick="browseFiles('${po.fieldName}','${po.fieldName}_href')"/>
+									onclick="commonUpload(function(url,name){$("#${po.fieldName}_href").attr('src',url).html('下载');$("#${po.fieldName}").val(url);})"/>
 		      	<#else>
 		      		<input id="${po.fieldName}" name="${po.fieldName}" type="text" style="width: 150px" class="inputxt"  
 		      						<#if po.fieldValidType?if_exists?html != ''>

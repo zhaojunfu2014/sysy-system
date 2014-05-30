@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;">
 <t:datagrid fitColumns="false" checkbox="true" name="cgreportConfigHeadList" title="动态报表配置抬头" actionUrl="cgreportConfigHeadController.do?datagrid"
@@ -19,6 +20,7 @@
 </t:datagrid></div>
 </div>
 <script src="webpage/jeecg/cgreport/core/cgreportConfigHeadList.js"></script>
+<script src="plug-in/clipboard/ZeroClipboard.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
  		//给时间控件加上样式
@@ -28,39 +30,14 @@
 	*	弹出菜单链接
 	*/
 	function popMenuLink(tableName,content){
-		var url = "<input type='text' style='width:380px;' disabled=\"disabled\" id='menuLink' title='cgReportController.do?list&id=${tableName}' value='cgReportController.do?list&id="+tableName+"' />";
 		$.dialog({
-			content: url,
-			drag :false,
-			lock : true,
-			title:'菜单链接['+content+']',
-			opacity : 0.3,
-			width:400,
-			height:50,
-			cache:false,
-		    cancelVal: '关闭',
-		    cancel: function(){clip.destroy();},
-		    button : [{
-		    	id : "coptyBtn",
-		    	name : "复制",
-		    	callback : function () {
-		    	}
-		    }],
-		    init : function () {
-				clip = new ZeroClipboard.Client();
-				clip.setHandCursor( true );
-				
-				clip.addEventListener('mouseOver', function(client){
-					clip.setText( document.getElementById("menuLink").value );
-				});
-				clip.addEventListener('complete', function(client, text){
-					alert("复制成功");
-				});
-				var menuLink = $("#menuLink").val();
-				$($("input[type=button]")[0]).attr("id","coptyBtn");
-				clip.setText(menuLink);
-				clip.glue("coptyBtn");
-		    }
-		});  
+			content: "url:cgFormHeadController.do?popmenulink&url=cgReportController.do?list&title="+tableName,
+            drag :false,
+            lock : true,
+            title:'菜单链接['+content+']',
+            opacity : 0.3,
+            width:400,
+            height:80,drag:false,min:false,max:false
+		}).zindex();
 	}
  </script>

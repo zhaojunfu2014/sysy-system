@@ -38,7 +38,7 @@ $(document).ready(function(){
 				  <td class="value">
 					<#if po.showType == "text">
 					  	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="text" class="inputxt"  style="width:120px;"
+					  		type="text" class="inputxt"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -52,7 +52,7 @@ $(document).ready(function(){
 					               </#if>>
 						<#elseif po.showType=='password'>
 							<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="password" class="inputxt"  style="width:120px;"
+					  		type="password" class="inputxt"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -69,7 +69,7 @@ $(document).ready(function(){
 										<#if po.dictTable?if_exists?html != ''>dictTable="po.dictTable" dictField="${po.dictField?if_exists?html}" dictText="${po.dictText?if_exists?html}"<#else>typeGroupCode="${po.dictField}"</#if> defaultVal="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}" hasLabel="false"  title="${po.content}"></t:dictSelect>     
 						<#elseif po.showType=='date'>
 							<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="text" class="Wdate" onClick="WdatePicker()"  style="width:120px;"
+					  		type="text" class="Wdate" onClick="WdatePicker()"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -79,10 +79,16 @@ $(document).ready(function(){
 										<input type="hidden" id="${entityName?uncap_first}List[0].${po.fieldName}" name="${entityName?uncap_first}List[0].${po.fieldName}" />
 										<a  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">暂时未上传文件</a>
 									   <input class="ui-button" type="button" value="上传附件"
-													onclick="browseFiles('${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}','${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}_href')"/> 
+													onclick="commonUpload(${entityName?uncap_first}List0${po.fieldName}Callback)"/> 
+										<script type="text/javascript">
+										function ${entityName?uncap_first}List0${po.fieldName}Callback(url,name){
+											$("#${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}_href").attr('href',url).html('下载');
+											$("#${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}").val(url);
+										}
+										</script>
 					      <#elseif po.showType=='datetime'>
 					      	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-						  		type="text"  class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  style="width:120px;"
+						  		type="text"  class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  
 						  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -90,7 +96,7 @@ $(document).ready(function(){
 					               </#if>>  
 					       <#else>
 					       	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-						  		type="text" class="inputxt"  style="width:120px;"
+						  		type="text" class="inputxt"  
 						  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -120,7 +126,7 @@ $(document).ready(function(){
 			<tr>
 				<#list columns as po>
 				<#if po.isShow=="N">
-					<input name="${entityName?uncap_first}List[0].${po.fieldName}" type="hidden" value="${'$'}{poVal.${po.fieldName}"/>
+					<input name="${entityName?uncap_first}List[0].${po.fieldName}" type="hidden" value="${'$'}{poVal.${po.fieldName}}"/>
 				</#if>
 				</#list>
 			</tr>
@@ -144,7 +150,7 @@ $(document).ready(function(){
 				  <td class="value">
 					<#if po.showType == "text">
 					  	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="text" class="inputxt"  style="width:120px;"
+					  		type="text" class="inputxt"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -158,7 +164,7 @@ $(document).ready(function(){
 					               </#if> value="${'$'}{poVal.${po.fieldName} }">
 						<#elseif po.showType=='password'>
 							<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="password" class="inputxt"  style="width:120px;"
+					  		type="password" class="inputxt"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -175,7 +181,7 @@ $(document).ready(function(){
 										<#if po.dictTable?if_exists?html != ''>dictTable="${po.dictTable?if_exists?html}" dictField="${po.dictField?if_exists?html}" dictText="${po.dictText?if_exists?html}"<#else>typeGroupCode="${po.dictField}"</#if> defaultVal="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}" hasLabel="false"  title="${po.content}"></t:dictSelect>     
 						<#elseif po.showType=='date'>
 							<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-					  		type="text" class="Wdate" onClick="WdatePicker()"  style="width:120px;"
+					  		type="text" class="Wdate" onClick="WdatePicker()"  
 					  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -183,7 +189,7 @@ $(document).ready(function(){
 					               </#if> value="<fmt:formatDate value='${'$'}{poVal.${po.fieldName}}' type="date" pattern="yyyy-MM-dd"/>">    
 					      <#elseif po.showType=='datetime'>
 					      	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-						  		type="text"  class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  style="width:120px;"
+						  		type="text"  class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  
 						  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>
@@ -191,18 +197,23 @@ $(document).ready(function(){
 					               </#if> value="<fmt:formatDate value='${'$'}{poVal.${po.fieldName}}' type="date" pattern="yyyy-MM-dd hh:mm:ss"/>">  
 					       <#elseif po.showType=='file'>
 							 <input type="hidden" id="${entityName?uncap_first}List[0].${po.fieldName}" name="${entityName?uncap_first}List[0].${po.fieldName}" value="${'$'}{poVal.${po.fieldName} }"/>
-										<c:if test="${'$'}{poVal.${po.fieldName} ==''}">
+										<c:if test="${'$'}{empty poVal.${po.fieldName}}">
 											<a  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">暂时未上传文件</a>
 										</c:if>
-										<c:if test="${'$'}{poVal.${po.fieldName} !=''}">
-											<a  href="${'$'}{poVal.${po.fieldName}"  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">下载</a>
+										<c:if test="${'$'}{!empty poVal.${po.fieldName}}">
+											<a  href="${'$'}{poVal.${po.fieldName}}"  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">下载</a>
 										</c:if>
-										<a href ="#" target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">暂时未上传文件</a>
 									   <input class="ui-button" type="button" value="上传附件"
-													onclick="browseFiles('${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}','${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}_href')"/> 
+													onclick="commonUpload(${entityName?uncap_first}List0${po.fieldName}Callback)"/> 
+										<script type="text/javascript">
+										function ${entityName?uncap_first}List0${po.fieldName}Callback(url,name){
+											$("#${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}_href").attr('href',url).html('下载');
+											$("#${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}").val(url);
+										}
+										</script>
 					       <#else>
 					       	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
-						  		type="text" class="inputxt"  style="width:120px;"
+						  		type="text" class="inputxt"  
 						  		<#if po.fieldValidType?if_exists?html != ''>
 					               datatype="${po.fieldValidType?if_exists?html}"
 					               <#else>

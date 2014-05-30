@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <%--   update-start--Author:duanql  Date:20130619 for：操作按钮窗口显示控制--%>
 <div id="system_function_functionList" class="easyui-layout" fit="true"><%--   update-end--Author:duanql  Date:20130619 for：操作按钮窗口显示控制--%>
 <div region="center" style="padding: 1px;"><t:datagrid name="functionList" title="菜单管理" actionUrl="functionController.do?functionGrid" idField="id" treegrid="true" pagination="false">

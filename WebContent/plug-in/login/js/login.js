@@ -145,7 +145,15 @@ function getCookie()
 	if (COOKIE_NAME !=null) {
 		$("input[iscookie='true']").each(function() {
 			$($("#"+this.name).val( $.cookie(this.name)));
-		});
+//            update-begin--Author:zhangguoming  Date:20140429 for：是否记住用户名优化
+            if("admin" == $.cookie(this.name)) {
+                $("#randCode").focus();
+            } else {
+                $("#password").val("");
+                $("#password").focus();
+            }
+//            update-end--Author:zhangguoming  Date:20140429 for：是否记住用户名优化
+        });
 		$("#on_off").attr("checked", true);
 		$("#on_off").val("1");
 	} 
@@ -153,6 +161,9 @@ function getCookie()
 	{
 		$("#on_off").attr("checked", false);
 		$("#on_off").val("0");
+//      update-begin--Author:zhangguoming  Date:20140429 for：是否记住用户名优化
+        $("#randCode").focus();
+//      update-end--Author:zhangguoming  Date:20140429 for：是否记住用户名优化
 	}
 }
 //点击消息关闭提示

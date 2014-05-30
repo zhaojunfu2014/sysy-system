@@ -2,6 +2,9 @@
 /**
  * 增删改工具栏
  */
+/*window.onerror = function() {
+	return true;
+};*/
 var iframe;// iframe操作对象
 var win;//窗口对象
 var gridname="";//操作datagrid对象名称
@@ -140,8 +143,8 @@ function createdetailwindow(title, addurl,width,height) {
 	width = width?width:700;
 	height = height?height:400;
 	if(width=="100%" || height=="100%"){
-		width = document.body.offsetWidth;
-		height =document.body.offsetHeight-100;
+		width = window.top.document.body.offsetWidth;
+		height =window.top.document.body.offsetHeight-100;
 	}
 	if(typeof(windowapi) == 'undefined'){
 		$.dialog({
@@ -154,7 +157,7 @@ function createdetailwindow(title, addurl,width,height) {
 			cache:false, 
 		    cancelVal: '关闭',
 		    cancel: true /*为true等价于function(){}*/
-		});
+		}).zindex();
 	}else{
 		W.$.dialog({
 			content: 'url:'+addurl,
@@ -167,7 +170,7 @@ function createdetailwindow(title, addurl,width,height) {
 			cache:false, 
 		    cancelVal: '关闭',
 		    cancel: true /*为true等价于function(){}*/
-		});
+		}).zindex();
 	}
 	
 }
@@ -267,16 +270,17 @@ function createwindow(title, addurl,width,height) {
 	width = width?width:700;
 	height = height?height:400;
 	if(width=="100%" || height=="100%"){
-		width = document.body.offsetWidth;
-		height =document.body.offsetHeight-100;
+		width = window.top.document.body.offsetWidth;
+		height =window.top.document.body.offsetHeight-100;
 	}
+    //--author：JueYue---------date：20140427---------for：弹出bug修改,设置了zindex()函数
 	if(typeof(windowapi) == 'undefined'){
 		$.dialog({
 			content: 'url:'+addurl,
 			lock : true,
+			//zIndex:1990,
 			width:width,
 			height:height,
-			zIndex:1990,
 			title:title,
 			opacity : 0.3,
 			cache:false,
@@ -287,13 +291,13 @@ function createwindow(title, addurl,width,height) {
 		    },
 		    cancelVal: '关闭',
 		    cancel: true /*为true等价于function(){}*/
-		});
+		}).zindex();
 	}else{
 		W.$.dialog({
 			content: 'url:'+addurl,
 			lock : true,
-			zIndex:1990,
 			width:width,
+			//zIndex:1990,
 			height:height,
 			parent:windowapi,
 			title:title,
@@ -306,8 +310,9 @@ function createwindow(title, addurl,width,height) {
 		    },
 		    cancelVal: '关闭',
 		    cancel: true /*为true等价于function(){}*/
-		});
+		}).zindex();
 	}
+    //--author：JueYue---------date：20140427---------for：弹出bug修改,设置了zindex()函数
 	
 }
 /**
@@ -340,7 +345,7 @@ function openuploadwin(title, url,name,width, height) {
 	            }
 	        }
 	    ]
-	});
+	}).zindex();
 }
 /**
  * 创建查询页面窗口
@@ -371,7 +376,7 @@ function opensearchdwin(title, url, width, height) {
 
 			}
 		} ]
-	});
+	}).zindex();
 }
 /**
  * 创建不带按钮的窗口
@@ -392,7 +397,7 @@ function openwindow(title, url,name, width, height) {
 				lock : true,
 				width: 'auto',
 			    height: height
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				content: 'url:'+url,
@@ -402,7 +407,7 @@ function openwindow(title, url,name, width, height) {
 				lock : true,
 				width: 'auto',
 			    height: height
-			});
+			}).zindex();
 		}
 	}
 	if (typeof (height) == 'undefined'&&typeof (width) != 'undefined')
@@ -415,7 +420,7 @@ function openwindow(title, url,name, width, height) {
 				width: width,
 				cache:false,
 			    height: 'auto'
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				content: 'url:'+url,
@@ -425,7 +430,7 @@ function openwindow(title, url,name, width, height) {
 				width: width,
 				cache:false,
 			    height: 'auto'
-			});
+			}).zindex();
 		}
 	}
 	if (typeof (width) == 'undefined'&&typeof (height) == 'undefined')
@@ -438,7 +443,7 @@ function openwindow(title, url,name, width, height) {
 				width: 'auto',
 				cache:false,
 			    height: 'auto'
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				content: 'url:'+url,
@@ -448,7 +453,7 @@ function openwindow(title, url,name, width, height) {
 				width: 'auto',
 				cache:false,
 			    height: 'auto'
-			});
+			}).zindex();
 		}
 	}
 	
@@ -462,7 +467,7 @@ function openwindow(title, url,name, width, height) {
 				title : title,
 				cache:false,
 				lock : true
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				width: width,
@@ -472,7 +477,7 @@ function openwindow(title, url,name, width, height) {
 				title : title,
 				cache:false,
 				lock : true
-			});
+			}).zindex();
 		}
 	}
 }
@@ -680,7 +685,7 @@ function openauditwin(title, url, saveurl, okbutton, backbutton, closebutton) {
 			}
 		} ]
 
-	});
+	}).zindex();
 }
 // 添加标签
 function addOneTab(subtitle, url, icon) {
@@ -698,28 +703,41 @@ function addOneTab(subtitle, url, icon) {
 	});
 	if (window.top.$('#maintabs').tabs('exists', subtitle)) {
 		window.top.$('#maintabs').tabs('select', subtitle);
-		window.top.$('#maintabs').tabs('update', {
-			tab : window.top.$('#maintabs').tabs('getSelected'),
-			options : {
-				title : subtitle,
-				href:url,
-				//content : '<iframe name="tabiframe"  scrolling="no" frameborder="0"  src="' + url + '" style="width:100%;height:99%;"></iframe>',
-				closable : true,
-				icon : icon
-			}
-		});
+		if (url.indexOf('isHref') != -1) {
+			window.top.$('#maintabs').tabs('update', {
+				tab : window.top.$('#maintabs').tabs('getSelected'),
+				options : {
+					title : subtitle,
+					href:url,
+					//content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+					closable : true,
+					icon : icon
+				}
+			});
+		}else {
+			window.top.$('#maintabs').tabs('update', {
+				tab : window.top.$('#maintabs').tabs('getSelected'),
+				options : {
+					title : subtitle,
+					content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+					//content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+					closable : true,
+					icon : icon
+				}
+			});
+		}
 	} else {
-		if (url.indexOf('isIframe') != -1) {
+		if (url.indexOf('isHref') != -1) {
 			window.top.$('#maintabs').tabs('add', {
 				title : subtitle,
-				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+				href:url,
 				closable : true,
 				icon : icon
 			});
 		}else {
 			window.top.$('#maintabs').tabs('add', {
 				title : subtitle,
-				href:url,
+				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
 				closable : true,
 				icon : icon
 			});
@@ -774,7 +792,7 @@ function inputClick(obj,name,code) {
 			    },
 			    cancelVal: '关闭',
 			    cancel: true /*为true等价于function(){}*/
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				content: "url:cgReportController.do?popup&id="+code,
@@ -807,7 +825,7 @@ function inputClick(obj,name,code) {
 			    },
 			    cancelVal: '关闭',
 			    cancel: true /*为true等价于function(){}*/
-			});
+			}).zindex();
 		}
 }
 /*
@@ -859,7 +877,7 @@ function popClick(obj,name,url) {
 			    },
 			    cancelVal: '关闭',
 			    cancel: true /*为true等价于function(){}*/
-			});
+			}).zindex();
 		}else{
 			$.dialog({
 				content: "url:"+url,
@@ -900,7 +918,7 @@ function popClick(obj,name,url) {
 			    },
 			    cancelVal: '关闭',
 			    cancel: true /*为true等价于function(){}*/
-			});
+			}).zindex();
 		}
 }
 /**

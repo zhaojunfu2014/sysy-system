@@ -45,6 +45,7 @@
 		<td align="center" bgcolor="#EEEEEE">序号</td>
 		<td align="left" bgcolor="#EEEEEE">姓名</td>
 		<td align="left" bgcolor="#EEEEEE">性别</td>
+		<td  style="display: none;"></td>
 	</tr>
 	<tbody id="add_jeecgStudent_table">
 		<c:if test="${fn:length(studentsList)  <= 0 }">
@@ -52,7 +53,7 @@
 				<td align="center"><input style="width: 20px;" type="checkbox" name="ck" /></td>
 				<td align="left"><input name="students[0].name" maxlength="50" type="text" style="width: 220px;"></td>
 				<td align="left"><t:dictSelect field="students[0].sex" typeGroupCode="sex" hasLabel="false" defaultVal="${jgDemo.sex}"></t:dictSelect></td>
-			</tr>
+            </tr>
 		</c:if>
 		<c:if test="${fn:length(studentsList)  > 0 }">
 			<c:forEach items="${studentsList}" var="poVal" varStatus="stuts">
@@ -60,7 +61,8 @@
 					<td align="center"><input style="width: 20px;" type="checkbox" name="ck" /></td>
 					<td align="left"><input name="students[${stuts.index }].name" maxlength="50" type="text" value="${poVal.name }" style="width: 220px;"></td>
 					<td align="left"><t:dictSelect field="students[${stuts.index }].sex" typeGroupCode="sex" hasLabel="false" defaultVal="${poVal.sex}"></t:dictSelect></td>
-				</tr>
+                    <td align="left" style="display: none;"><input name="students[${stuts.index }].id" type="text" value="${poVal.id }" style="width: 0px;"></td>
+                </tr>
 			</c:forEach>
 		</c:if>
 	</tbody>

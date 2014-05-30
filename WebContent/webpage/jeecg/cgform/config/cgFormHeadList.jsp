@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
-<SCRIPT type=text/javascript src="plug-in/clipboard/ZeroClipboard.js"></SCRIPT>
+<t:base type="jquery,easyui,tools,autocomplete"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;"><t:datagrid sortName="createDate" sortOrder="desc" name="tablePropertyList" title="智能表单配置" fitColumns="false"
 	actionUrl="cgFormHeadController.do?datagrid" idField="id" fit="true" queryMode="group" checkbox="true">
@@ -37,8 +37,7 @@
 </t:datagrid></div>
 </div>
 
-<SCRIPT type="text/javascript">
- 	var clip;
+<script type="text/javascript">
 	function addbytab(id,content) {
 		addOneTab("表单模板", "cgformFtlController.do?cgformFtl2&formid="+id);
 	}
@@ -54,7 +53,8 @@
 			height:500,
 			cache:false,
 		    cancelVal: '关闭',
-		    cancel: true 
+		    cancel: true,
+            drag:false,max:false,min:false
 		});
 	}
 	function delCgForm(id,name){
@@ -148,40 +148,15 @@
 	*	弹出菜单链接
 	*/
 	function popMenuLink(tableName,content){
-		var url = "<input type='text' style='width:380px;' disabled=\"disabled\" id='menuLink' title='cgAutoListController.do?list&id=${tableName}' value='cgAutoListController.do?list&id="+tableName+"' />";
-		$.dialog({
-			content: url,
+        $.dialog({
+			content: "url:cgFormHeadController.do?popmenulink&url=cgAutoListController.do?list&title="+tableName,
 			drag :false,
 			lock : true,
 			title:'菜单链接['+content+']',
 			opacity : 0.3,
 			width:400,
-			height:50,
-			cache:false,
-		    cancelVal: '关闭',
-		    cancel: function(){clip.destroy();},
-		    button : [{
-		    	id : "coptyBtn",
-		    	name : "复制",
-		    	callback : function () {
-		    	}
-		    }],
-		    init : function () {
-				clip = new ZeroClipboard.Client();
-				clip.setHandCursor( true );
-				
-				clip.addEventListener('mouseOver', function(client){
-					clip.setText( document.getElementById("menuLink").value );
-				});
-				clip.addEventListener('complete', function(client, text){
-					alert("复制成功");
-				});
-				var menuLink = $("#menuLink").val();
-				$($("input[type=button]")[0]).attr("id","coptyBtn");
-				clip.setText(menuLink);
-				clip.glue("coptyBtn");
-		    }
-		});  
+			height:80,drag:false,min:false,max:false
+		});
 	}
 
 	//自定义按钮
@@ -370,4 +345,4 @@
 		    }]
 		}); 
 	}
-	</SCRIPT>
+</script>

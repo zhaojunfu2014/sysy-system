@@ -11,12 +11,12 @@
  		 var tr =  $("#add_${entityName?uncap_first}_table_template tr").clone();
 	 	 $("#add_${entityName?uncap_first}_table").append(tr);
 	 	 resetTrNum('add_${entityName?uncap_first}_table');
-	 	  return false;
+	 	 return false;
     });  
 	$('#del${entityName}Btn').bind('click', function(){   
       	$("#add_${entityName?uncap_first}_table").find("input:checked").parent().parent().remove();   
         resetTrNum('add_${entityName?uncap_first}_table'); 
-         return false;
+        return false;
     }); 
     $(document).ready(function(){
     	$(".datagrid-toolbar").parent().css("width","auto");
@@ -24,16 +24,21 @@
 			$(":input").attr("disabled","true");
 			$(".datagrid-toolbar").hide();
 		}
+		//将表格的表头固定
+	    $("#${entityName?uncap_first}_table").createhftable({
+	    	height:'300px',
+			width:'auto',
+			fixFooter:false
+			});
     });
 </script>
 <div style="padding: 3px; height: 25px;width:auto;" class="datagrid-toolbar">
 	<a id="add${entityName}Btn" href="#">添加</a> <a id="del${entityName}Btn" href="#">删除</a> 
 </div>
-<div style="width: auto;height: 300px;overflow-y:auto;overflow-x:scroll;">
 <table border="0" cellpadding="2" cellspacing="0" id="${entityName?uncap_first}_table">
 	<tr bgcolor="#E6E6E6">
-		<td align="center" bgcolor="#EEEEEE"><label class="Validform_label">序号</label></td>
-		<td align="center" bgcolor="#EEEEEE"><label class="Validform_label">操作</label></td>
+		<td align="center" bgcolor="#EEEEEE">序号</td>
+		<td align="center" bgcolor="#EEEEEE">操作</td>
 		 <#list pageColumns as po>
 				 <#assign check = 0 >
 				  <#list foreignKeys as key>
@@ -44,9 +49,8 @@
 				  </#list>
 				  <#if check==0>
 				  <td align="left" bgcolor="#EEEEEE">
-				  <label class="Validform_label">
-								${po.content}
-							</label></td>
+						${po.content}
+				  </td>
 				  </#if>
 	      </#list>
 	</tr>
@@ -119,9 +123,10 @@
 					               </#if>> 
 					       <#elseif po.showType=='file'>
 							<input type="hidden" id="${entityName?uncap_first}List[0].${po.fieldName}" name="${entityName?uncap_first}List[0].${po.fieldName}" />
-										<a  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">暂时未上传文件</a>
+										<a  target="_blank" id="${entityName?uncap_first}List[0].${po.fieldName}_href">未上传</a>
+										<br>
 									   <input class="ui-button" type="button" value="上传附件"
-													onclick="browseFiles('${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}','${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}_href')"/> 
+													onclick="commonUpload(commonUploadDefaultCallBack,'${entityName?uncap_first}List\\[0\\]\\.${po.fieldName}')"/> 
 					       <#else>
 					       	<input name="${entityName?uncap_first}List[0].${po.fieldName}" maxlength="${po.length?c}" 
 						  		type="text" class="inputxt"  style="width:120px;"
@@ -212,15 +217,15 @@
 					               </#if> value="<fmt:formatDate value='${'$'}{poVal.${po.fieldName}}' type="date" pattern="yyyy-MM-dd hh:mm:ss"/>">  
 					      <#elseif po.showType=='file'>
 					        <input type="hidden" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}" name="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}"  value="${'$'}{poVal.${po.fieldName} }"/>
-										<c:if test="${'$'}{poVal.${po.fieldName} ==''}">
-											<a  target="_blank" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}_href">暂时未上传文件</a>
+										<c:if test="${'$'}{empty poVal.${po.fieldName}}">
+											<a  target="_blank" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}_href">未上传</a>
 										</c:if>
-										<c:if test="${'$'}{poVal.${po.fieldName} !=''}">
-											<a  href="${'$'}{poVal.${po.fieldName}"  target="_blank" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}_href">下载</a>
+										<c:if test="${'$'}{!empty poVal.${po.fieldName}}">
+											<a  href="${'$'}{poVal.${po.fieldName}}"  target="_blank" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}_href">下载</a>
 										</c:if>
-										<a href ="#" target="_blank" id="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}_href">暂时未上传文件</a>
+										<br>
 									   <input class="ui-button" type="button" value="上传附件"
-													onclick="browseFiles('${entityName?uncap_first}List\\[${'$'}{stuts.index }\\]\\.${po.fieldName}','${entityName?uncap_first}List\\[${'$'}{stuts.index }\\]\\.${po.fieldName}_href')"/> 
+													onclick="commonUpload(commonUploadDefaultCallBack,'${entityName?uncap_first}List\\[${'$'}{stuts.index }\\]\\.${po.fieldName}')"/> 
 					       <#else>
 					       	<input name="${entityName?uncap_first}List[${'$'}{stuts.index }].${po.fieldName}" maxlength="${po.length?c}" 
 						  		type="text" class="inputxt"  style="width:120px;"
@@ -245,4 +250,3 @@
 	</c:if>	
 	</tbody>
 </table>
-</div>

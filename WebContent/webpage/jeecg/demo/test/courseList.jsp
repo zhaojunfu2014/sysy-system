@@ -18,6 +18,7 @@
 	}
 	
 </script>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;"><t:datagrid name="courseList" title="课程" actionUrl="courseController.do?datagrid" idField="id" fit="true" queryMode="group">
 	<t:dgCol title="编号" field="id" hidden="false"></t:dgCol>

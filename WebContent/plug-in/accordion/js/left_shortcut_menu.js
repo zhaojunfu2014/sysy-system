@@ -1,4 +1,5 @@
 ﻿$(function() {
+	$("#nav").hide();
 	//easy ui树加载会在文档加载完执行,所以初始化菜单要延迟一秒 by jueyue
 	// update-start--Author:gaofeng  Date:2014-01-09：由于不需展示左侧的树，因此降低刷新的延迟时间  
 	setTimeout(InitLeftMenu,100);
@@ -29,7 +30,6 @@
 var rowid="";
 // 初始化左侧
 function InitLeftMenu() {
-	$("#nav").show();
 	$('.easyui-accordion li div').click(function() {
 		$('.easyui-accordion li div').removeClass("selected");
 		$(this).parent().addClass("selected");
@@ -54,7 +54,7 @@ function InitLeftMenu() {
 	    navaa.find(".panel-body").css("height",winheight);
 	 });
 	// update-end--Author:gaofeng  Date:2014-01-09 for:新增首页风格,一级菜单点击事件的切换操作
-	 
+
 	// begin author：屈然博 2013-8-04 for：避免监听树自带三角点击事件
 	$('.easyui-tree').tree({
 		onClick: function(node){
@@ -62,10 +62,20 @@ function InitLeftMenu() {
 		}
 	});
 	// begin author：屈然博 2013-8-04 for：避免监听树自带三角点击事件
-
+    $.ajax({
+        url: "loginController.do?primaryMenu",
+        async:false,
+        success: function (data) {
+//            update-begin--Author:zhangguoming  Date:20140429 for：一级菜单右侧有双引号，且在ie下样式错位
+//            $(".shortcut").html(data);
+            $(".shortcut").html(data.replaceAll("\"", ""));
+//            update-end--Author:zhangguoming  Date:20140429 for：一级菜单右侧有双引号，且在ie下样式错位
+        }
+    });
 	// update-start--Author:Peak  Date:2014-01-09：新增首页风格,初始化第一个菜单的内容显示
 	$(".shortcut li").eq(0).trigger("click");
 	//update-end--Author:Peak  Date:2014-01-09：新增首页风格,初始化第一个菜单的内容显示
+	$("#nav").show();
 }
 
 function openThisNoed(node) {
@@ -128,21 +138,20 @@ function addTab(subtitle, url, icon) {
 	});
 	if (!$('#maintabs').tabs('exists', subtitle)) {
 		//判断是否进行iframe方式打开tab，默认为href方式
-		if(url.indexOf('isIframe') != -1){
-			$('#maintabs').tabs('add', {
-				title : subtitle,
-				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
-				closable : true,
-				icon : icon
-			});			
-		}else{
+		if(url.indexOf('isHref') != -1){
 			$('#maintabs').tabs('add', {
 				title : subtitle,
 				href : url,
 				closable : true,
 				icon : icon
-			});			
-			
+			});		
+		}else{
+			$('#maintabs').tabs('add', {
+				title : subtitle,
+				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+				closable : true,
+				icon : icon
+			});		
 		}
 
 	} else {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <t:datagrid name="addDemoList" title="DEMO维护" actionUrl="demoController.do?demoGrid" idField="id" treegrid="true" pagination="false">
 	<t:dgCol title="编号" field="id" treefield="id" hidden="false"></t:dgCol>
 	<t:dgCol title="DEMO名称" field="functionName" width="100" treefield="text"></t:dgCol>

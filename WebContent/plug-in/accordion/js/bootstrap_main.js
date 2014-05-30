@@ -49,7 +49,9 @@ function showContent(subtitle, url){
 	}
 	
 	//判断是否进行iframe方式打开
-	if(url.indexOf('isIframe') != -1){
+	if(url.indexOf('isHref') != -1){
+		
+	}else{
 		$("#wrapper").html( '<iframe  scrolling="no" frameborder="0"  src="'+url+'" style="width:100%;min-height:480px;"></iframe>');
 		$.parser.parse($('#wrapper'));
 		//设置iframe高度自适应

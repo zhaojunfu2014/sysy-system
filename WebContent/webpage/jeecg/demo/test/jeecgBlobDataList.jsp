@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;"><t:datagrid name="jeecgBlobDataList" title="Blob型数据操作例子" actionUrl="jeecgBlobDataController.do?datagrid" idField="id" fit="true">
 	<t:dgCol title="编号" field="id" hidden="false"></t:dgCol>

@@ -99,7 +99,7 @@
 				<td align="right"><label class="Validform_label">出厂检验方式:</label>
 				</td>
 				<td class="value" colspan="3"><input id="checkWay"
-					name="checkWay" type="text" style="width: 150px" class="inputxt">
+					name="checkWay" type="text" style="width: 80%" class="inputxt">
 					<span class="Validform_checktip"></span> <label
 					class="Validform_label" style="display: none;">出厂检验方式</label></td>
 

@@ -38,6 +38,7 @@
 				if(node){
 					$('#cc').combotree('setValue', null);
 				}
+                $("#functionId").val(null);
 				$('#pfun').hide();
 			}
 		});
@@ -65,6 +66,18 @@
 			<option value="${icon.id}" <c:if test="${icon.id==function.TSIcon.id || (function.id eq null && icon.iconClas eq 'pictures') }">selected="selected"</c:if>>${icon.iconName}</option>
 		</c:forEach>
 	</select></div>
+    <%--update-begin--Author:zhangguoming  Date:20140509 for：云桌面图标管理--%>
+    <div class="form">
+        <label class="Validform_label"> 桌面图标名称: </label>
+        <select name="TSIconDesk.id">
+            <c:forEach items="${iconDeskList}" var="icon">
+                <option value="${icon.id}" <c:if test="${icon.id==function.TSIconDesk.id || (function.id eq null && icon.iconClas eq 'System Folder') }">selected="selected"</c:if>>
+                    ${icon.iconName}
+                </option>
+            </c:forEach>
+        </select>
+    </div>
+    <%--update-end--Author:zhangguoming  Date:20140509 for：云桌面图标管理--%>
 	<div class="form" id="funorder"><label class="Validform_label"> 菜单顺序: </label> <input name="functionOrder" class="inputxt" value="${function.functionOrder}" datatype="n1-3"></div>
 	</fieldset>
 </t:formvalid>

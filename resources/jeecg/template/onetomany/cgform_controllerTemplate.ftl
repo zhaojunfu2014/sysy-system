@@ -43,7 +43,7 @@ import org.jeecgframework.core.util.MyBeanUtils;
 /**   
  * @Title: Controller
  * @Description: ${ftl_description}
- * @author 赵俊夫
+ * @author onlineGenerator
  * @date ${ftl_create_time}
  * @version V1.0   
  *

@@ -15,6 +15,7 @@
 	<div class="form"><label class="Validform_label"> 图标类型: </label> <select name="iconType" id="iconType">
 		<option value="1" <c:if test="${icon.iconType=='1'}">selected="selected"</c:if>>系统图标</option>
 		<option value="2" <c:if test="${icon.iconType=='2'}">selected="selected"</c:if>>菜单图标</option>
+		<option value="3" <c:if test="${icon.iconType=='3'}">selected="selected"</c:if>>桌面图标</option>
 	</select></div>
 	<div class="form" id="filediv"></div>
 	<div class="form"><t:upload name="file_upload" uploader="iconController.do?saveOrUpdateIcon" extend="*.png;" id="file_upload" formData="id,iconName,iconType"></t:upload></div>

@@ -1,5 +1,26 @@
 ${cgformConfig.formJs.cgJsStr?if_exists}
 
+//通用弹出式文件上传
+function commonUpload(callback){
+    $.dialog({
+           content: "url:systemController.do?commonUpload",
+           lock : true,
+           title:"文件上传",
+           zIndex:2100,
+           width:700,
+           height: 200,
+           parent:windowapi,
+           cache:false,
+       ok: function(){
+               var iframe = this.iframe.contentWindow;
+               iframe.uploadCallback(callback);
+                   return true;
+       },
+       cancelVal: '关闭',
+       cancel: function(){
+       } 
+   });
+}
 function browseImages(inputId, Img) {// 图片管理器，可多个上传共用
 		var finder = new CKFinder();
 		finder.selectActionFunction = function(fileUrl, data) {//设置文件被选中时的函数 

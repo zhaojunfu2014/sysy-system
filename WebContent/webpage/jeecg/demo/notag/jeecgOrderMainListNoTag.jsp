@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <script type="text/javascript">
 	$(function() {
 		$('#jeecgOrderMainListNoTag').datagrid({
@@ -187,7 +189,6 @@
 		jeecgOrderMainListsearch();
 	}
 </script>
-
 <table width="100%" id="jeecgOrderMainListNoTag" toolbar="#jeecgOrderMainListNoTagtb"></table>
 <div id="jeecgOrderMainListNoTagtb" style="padding: 3px; height: auto">
 <div style="height: 30px;" class="datagrid-toolbar"><span style="float: left;"> <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add"

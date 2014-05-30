@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
+<t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
 <div region="center" style="padding: 1px;">
 <t:datagrid name="jeecgDemoList" title="DEMO示例列表" autoLoadData="true" actionUrl="jeecgDemoController.do?datagrid" sortName="userName" fitColumns="true"
@@ -20,7 +21,9 @@
 	<t:dgFunOpt exp="status#eq#0" operationCode="szqm" funname="szqm(id)" title="审核" />
 	<t:dgDelOpt operationCode="del" title="删除" url="jeecgDemoController.do?del&id={id}" />
 	<t:dgToolBar operationCode="add" title="录入" icon="icon-add" url="jeecgDemoController.do?addorupdate" funname="add"></t:dgToolBar>
+	<t:dgToolBar operationCode="add" title="mobile录入" icon="icon-add" url="jeecgDemoController.do?addorupdatemobile" funname="addMobile"></t:dgToolBar>
 	<t:dgToolBar operationCode="edit" title="编辑" icon="icon-edit" url="jeecgDemoController.do?addorupdate" funname="update"></t:dgToolBar>
+	<t:dgToolBar operationCode="edit" title="mobile编辑" icon="icon-edit" url="jeecgDemoController.do?addorupdatemobile" funname="updateMobile"></t:dgToolBar>
 	<t:dgToolBar operationCode="detail" title="查看" icon="icon-search" url="jeecgDemoController.do?addorupdate" funname="detail"></t:dgToolBar>
 	<t:dgToolBar operationCode="print" title="打印" icon="icon-print" url="jeecgDemoController.do?print" funname="detail"></t:dgToolBar>
 	<t:dgToolBar title="批量删除" icon="icon-remove" url="jeecgDemoController.do?doDeleteALLSelect" funname="deleteALLSelect"></t:dgToolBar>
@@ -51,8 +54,28 @@
 		openuploadwin('Xml导入', 'transdata.do?toMigrate', "jeecgDemoList");
 	}
 	$(document).ready(function(){
-		$("input[name='createDate_begin']").attr("class","easyui-datebox");
-		$("input[name='createDate_end']").attr("class","easyui-datebox");
-		$("input[name='birthday']").attr("class","easyui-datebox");
+		$("input[name='createDate_begin']").attr("class","Wdate").attr("style","height:20px;width:90px;").click(function(){WdatePicker({dateFmt:'yyyy-MM-dd'});});
+		$("input[name='createDate_end']").attr("class","Wdate").attr("style","height:20px;width:90px;").click(function(){WdatePicker({dateFmt:'yyyy-MM-dd'});});
+		$("input[name='birthday']").attr("class","Wdate").attr("style","height:20px;width:90px;").click(function(){WdatePicker({dateFmt:'yyyy-MM-dd'});});
 	});
+
+	function addMobile(title,addurl,gname,width,height){
+		window.open(addurl);
+	}
+	
+	function updateMobile(title,url, id,width,height){
+		gridname=id;
+		var rowsData = $('#'+id).datagrid('getSelections');
+		if (!rowsData || rowsData.length==0) {
+			tip('请选择编辑项目');
+			return;
+		}
+		if (rowsData.length>1) {
+			tip('请选择一条记录再编辑');
+			return;
+		}
+		
+		url += '&id='+rowsData[0].id;
+		window.open(url);
+	}
 </script>

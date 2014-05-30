@@ -20,6 +20,11 @@
 			<tr>
 				<td class="value"><input type="radio" value="shortcut" name="indexStyle" /> <span>ShortCut风格</span></td>
 			</tr>
+			<!-- update-start--Author:gaofeng  Date:2014-01-24 for:新增首页风格  -->
+			<tr>
+				<td class="value"><input type="radio" value="sliding" name="indexStyle"  /><span>Sliding风格</span></td>
+			</tr>
+			<!-- update-end--Author:gaofeng  Date:2014-01-24 for:新增首页风格  -->	
 		</tbody>
 	</table>
 </t:formvalid>

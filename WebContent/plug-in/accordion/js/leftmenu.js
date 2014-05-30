@@ -97,21 +97,22 @@ function addTab(subtitle, url, icon) {
 		interval : 200
 	});
 	if (!$('#maintabs').tabs('exists', subtitle)) {
-		//判断是否进行iframe方式打开tab，默认为href方式
-		if(url.indexOf('isIframe') != -1){
-			$('#maintabs').tabs('add', {
-				title : subtitle,
-				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
-				closable : true,
-				icon : icon
-			});			
-		}else{
+		//判断是否进行href方式打开tab，默认为iframe方式
+		if(url.indexOf('isHref') != -1){
 			$('#maintabs').tabs('add', {
 				title : subtitle,
 				href : url,
 				closable : true,
 				icon : icon
-			});			
+			});	
+		}else{
+			
+			$('#maintabs').tabs('add', {
+				title : subtitle,
+				content : '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99.4%;"></iframe>',
+				closable : true,
+				icon : icon
+			});		
 			
 		}
 

@@ -47,7 +47,7 @@
 									               </#if>
 									               </#if>  value='${'$'}{${entityName?uncap_first}Page.${po.fieldName}}'>
 						    <#elseif po.showType=='textarea'>
-						  	 	<textarea id="${po.fieldName}" name="${po.fieldName}"  style="width: 600px" class="inputxt" rows="6">${'$'}{${entityName?uncap_first}Page.${po.fieldName}}</textarea>
+						  	 	<textarea id="${po.fieldName}" name="${po.fieldName}">${'$'}{${entityName?uncap_first}Page.${po.fieldName}}</textarea>
 						     <#elseif po.showType=='password'>
 						      	<input id="${po.fieldName}" name="${po.fieldName}" type="password" style="width: 150px" class="inputxt"  
 						      						<#if po.fieldValidType?if_exists?html != ''>
@@ -84,14 +84,20 @@
 						      						 value='<fmt:formatDate value='${'$'}{${entityName?uncap_first}Page.${po.fieldName}}' type="date" pattern="yyyy-MM-dd hh:mm:ss"/>'>
 						      	<#elseif po.showType=='file'>
 									  <input type="hidden" id="${po.fieldName}" name="${po.fieldName}" value='${'$'}{${entityName?uncap_first}Page.${po.fieldName}}'/>
-										<c:if test="${'$'}{${entityName?uncap_first}Page.${po.fieldName}==''}">
+										<c:if test="${'$'}{empty ${entityName?uncap_first}Page.${po.fieldName}}">
 											<a   target="_blank" id="${po.fieldName}_href">暂时未上传文件</a>
 										</c:if>
-										<c:if test="${'$'}{${entityName?uncap_first}Page.${po.fieldName}!=''}">
-											<a href="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}"  target="_blank" id="${po.fieldName}_href">下载</a>
+										<c:if test="${'$'}{!empty ${entityName?uncap_first}Page.${po.fieldName}}">
+											<a href="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}"  target="_blank" id="${po.fieldName}_href" href="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}">下载</a>
 										</c:if>
 									   <input class="ui-button" type="button" value="上传附件"
-													onclick="browseFiles('${po.fieldName}','${po.fieldName}_href')"/>
+													onclick="commonUpload(${po.fieldName}Callback)"/>
+						      			<script type="text/javascript">
+											function ${po.fieldName}Callback(url,name){
+												$("#${po.fieldName}_href").attr('href',url).html('下载');
+												$("#${po.fieldName}").val(url);
+											}
+										</script>
 						      	<#else>
 						      		<input id="${po.fieldName}" name="${po.fieldName}" type="text" style="width: 150px" class="inputxt"  
 						      						<#if po.fieldValidType?if_exists?html != ''>
