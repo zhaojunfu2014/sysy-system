@@ -32,17 +32,24 @@ public class TraceController {
 	public ModelAndView trace(HttpServletRequest request) {
 		return new ModelAndView("com/sysy/trace/traceList");
 	}
-	@RequestMapping(params = "traceQuery")
-	@ResponseBody
-	public Map traceQuery(HttpServletRequest request){
-		String pno = request.getParameter("pno");
-		String bno = request.getParameter("bno");
-		String sno = request.getParameter("sno");
-		
+	/**
+	 * 溯源查询-返回数据和页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(params = "query")
+	public ModelAndView query(HttpServletRequest request) {
+		//1.前台查询参数
+		String pno = request.getParameter("pno");//产品编号
+		String bno = request.getParameter("bno");//批次号
+		String sno = request.getParameter("sno");//溯源码
+		//2.获取数据
 		Map data = new HashMap();
 		try{
+			//2.1 产品数据
 			Map<String,Object> prdMap = traceDao.findPrdPro(pno, bno, sno);
 			Long pid = Long.parseLong(String.valueOf(prdMap.get("id")));
+			//2.2 生产记录
 			List<Map<String,Object>> prdMaterial = traceDao.findPrdMaterial(pid);
 			
 			data.put("prdMap", prdMap);
@@ -52,6 +59,8 @@ public class TraceController {
 			e.printStackTrace();
 			data.put("count", 0);
 		}
-		return data;
+		//3.返回页面
+		request.setAttribute("datas", data);
+		return new ModelAndView("com/sysy/trace/query");
 	}
 }

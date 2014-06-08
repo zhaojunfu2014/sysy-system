@@ -107,7 +107,7 @@
 						<value>loginController.do?checkuser</value>
 						<value>repairController.do?repair</value>
 						<value>repairController.do?deleteAndRepair</value>
-						<value>traceController.do?traceQuery</value>
+						<value>traceController.do?query</value>
 					</list>
 				</property>
 			</bean>

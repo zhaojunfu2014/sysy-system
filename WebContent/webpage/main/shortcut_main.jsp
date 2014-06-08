@@ -140,11 +140,8 @@ a:hover {
 					<div onclick="openwindow('用户信息','userController.do?userinfo')">个人信息</div>
 					<div class="menu-sep"></div>
 					<div onclick="add('修改密码','userController.do?changepassword')">修改密码</div>
-					<div class="menu-sep"></div>	
-					<div onclick="add('修改首页风格','userController.do?changestyle')">首页风格</div>
 				</div>
 				<div id="layout_north_zxMenu" style="width: 100px; display: none;">
-					<div class="menu-sep"></div>
 					<div onclick="exit('loginController.do?logout','确定退出该系统吗 ?',1);">退出系统</div>
 				</div>	
 				</div>
