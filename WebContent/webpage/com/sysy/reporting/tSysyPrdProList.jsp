@@ -4,6 +4,9 @@
 <div class="easyui-layout" fit="true">
   <div region="center" style="padding:1px;">
   <t:datagrid fitColumns="false" checkbox="true" name="tSysyPrdProList" title="产品生产记录" actionUrl="tSysyPrdProController.do?datagrid" idField="id" fit="true" queryMode="group">
+   <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
+   <t:dgOpenOpt title="二维码" url="tSysyPrdProController.do?goBarcode&id={id}" openModel="OpenWin" width="400" height="200"></t:dgOpenOpt>
+   <t:dgDelOpt title="删除" url="tSysyPrdProController.do?doDel&id={id}" />
    <t:dgCol title="主键"  field="id"  hidden="false"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="企业组织机构代码"  field="epCode"  hidden="true" query="true" queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="产品编码"  field="prdNo"  hidden="true" query="true" queryMode="single"  width="120"></t:dgCol>
@@ -18,8 +21,6 @@
    <t:dgCol title="出厂检验方式"  field="checkWay"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="出厂检验情况"  field="checkContent"  hidden="false"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="检验报告"  field="checkReport"  hidden="false"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
-   <t:dgDelOpt title="删除" url="tSysyPrdProController.do?doDel&id={id}" />
    <t:dgToolBar title="录入" icon="icon-add" url="tSysyPrdProController.do?goAdd" funname="add" width="100%"></t:dgToolBar>
    <t:dgToolBar title="编辑" icon="icon-edit" url="tSysyPrdProController.do?goUpdate" funname="update" width="100%"></t:dgToolBar>
    <t:dgToolBar title="批量删除"  icon="icon-remove" url="tSysyPrdProController.do?doBatchDel" funname="deleteALLSelect"></t:dgToolBar>

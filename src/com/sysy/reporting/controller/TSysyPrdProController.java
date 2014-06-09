@@ -1,9 +1,14 @@
 package com.sysy.reporting.controller;
+import com.sysy.barcode.BarCodeFactory;
+import com.sysy.barcode.BarCodeType;
 import com.sysy.reporting.entity.TSysyPrdProEntity;
 import com.sysy.reporting.service.TSysyPrdProServiceI;
 import com.sysy.reporting.page.TSysyPrdProPage;
 import com.sysy.reporting.entity.TSysyPrdMaterialEntity;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +44,7 @@ import org.jeecgframework.core.util.MyBeanUtils;
 @Controller
 @RequestMapping("/tSysyPrdProController")
 public class TSysyPrdProController extends BaseController {
+	private static final ResourceBundle bundle = java.util.ResourceBundle.getBundle("sysConfig");
 	/**
 	 * Logger for this class
 	 */
@@ -209,7 +215,46 @@ public class TSysyPrdProController extends BaseController {
 		return new ModelAndView("com/sysy/reporting/tSysyPrdPro-update");
 	}
 	
-	
+	/**
+	 * 查看二维码
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "barcode")
+	public void barcode(TSysyPrdProEntity tSysyPrdPro, HttpServletRequest req,HttpServletResponse rep) {
+		if (StringUtil.isNotEmpty(tSysyPrdPro.getId())) {
+			tSysyPrdPro = tSysyPrdProService.getEntity(TSysyPrdProEntity.class, tSysyPrdPro.getId());
+			String pno = tSysyPrdPro.getPrdNo();
+			String bno = tSysyPrdPro.getPrdBatch();
+			//TODO 暂时采用产品号和批次号生成二维码
+			String website = bundle.getString("website").toLowerCase();
+			String url = website+req.getContextPath()+"/traceController.do?query";
+			url+="&pno="+pno+"&bno="+bno;
+			BarCodeFactory bf = BarCodeFactory.getFactory(BarCodeType.QRCODE);
+			OutputStream ops;
+			try {
+				ops = rep.getOutputStream();
+				bf.createImgByStr(url,ops);
+				ops.flush();
+				ops.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	/**
+	 * 二维码页面跳转
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "goBarcode")
+	public ModelAndView goBarcode(TSysyPrdProEntity tSysyPrdPro, HttpServletRequest req) {
+		if (StringUtil.isNotEmpty(tSysyPrdPro.getId())) {
+			tSysyPrdPro = tSysyPrdProService.getEntity(TSysyPrdProEntity.class, tSysyPrdPro.getId());
+			req.setAttribute("tSysyPrdProPage", tSysyPrdPro);
+		}
+		return new ModelAndView("com/sysy/reporting/barcode");
+	}
 	/**
 	 * 加载明细列表[产品原料]
 	 * 
